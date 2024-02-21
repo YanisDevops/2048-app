@@ -67,5 +67,14 @@ pipeline {
                 sh 'trivy image sreedhar8897/2048-game:latest > trivyimage.txt' 
             }
         }
+        stage('k8s using ansible'){
+            steps{
+                dir('Ansible') {
+                    script{
+                        ansiblePlaybook credentialsId: 'ssh', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/', playbook: 'kube.yaml'
+                    }
+                } 
+            }
+        }
     }
 }
