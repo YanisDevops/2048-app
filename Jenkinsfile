@@ -53,31 +53,18 @@ pipeline {
                 
             }
         }
-        stage("Docker Image Build") {
+        stage('Ansible Docker') {
             steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {   
-                        sh 'docker system prune -f'
-                        sh 'docker container prune -f'
-                        sh 'docker build -t 2048-game .'
-                    }
-                    
-                }
-            }
-        }
-        stage("Docker Image Pushing") {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {   
-                        sh 'docker tag 2048-game sreedhar8897/2048-game:${BUILD_NUMBER}'
-                        sh 'docker push sreedhar8897/2048-game:${BUILD_NUMBER}'
-                    }
-                }
+                dir('Ansible'){
+                  script {
+                        ansiblePlaybook credentialsId: 'SSH', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/', playbook: 'docker.yaml'
+                    }     
+                }    
             }
         }
         stage("TRIVY Image Scan") {
             steps {
-                sh 'trivy image sreedhar8897/2048-game:${BUILD_NUMBER} > trivyimage.txt' 
+                sh 'trivy image sreedhar8897/2048-game:latest > trivyimage.txt' 
             }
         }
     }
