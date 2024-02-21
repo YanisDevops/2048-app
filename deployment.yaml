@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: 2048-game
+  name: game-2048
 spec:
   selector:
     matchLabels:
-      app: 2048-game
+      app: game-2048
   replicas: 1 
   template: 
     metadata:
       labels:
-        app: 2048-game
+        app: game-2048
     spec:
       containers:
-      - name: 2048-game
+      - name: game-2048
         image: sreedhar8897/2048-game:latest
         ports:
         - containerPort: 80
@@ -22,11 +22,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: 2048-game
+  name: game-2048
 spec:
   type: LoadBalancer
   selector:
-    app: 2048-game
+    app: game-2048
   ports:
   - name: http
     protocol: TCP
