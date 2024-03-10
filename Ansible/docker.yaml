@@ -7,8 +7,8 @@
       apt:
         update_cache: yes   
         
-    - name: Remove image
-      command: docker rm -f 2048-game 
+    - name: stop remove old container
+      command: docker stop 2048-game && docker rm -f 2048-game 
 
     - name: Build Docker Image
       command: docker build -t 2048-game .
@@ -28,4 +28,4 @@
       command: docker push yanishub1/2048-game:latest
 
     - name: Run container
-      command: docker run -d --name 2048-game -p 80:80 yanishub1/2048-game:latest
+      command: docker run -d --name 2048-game -p 8095:80 yanishub1/2048-game:latest
