@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: game-2048
-        image: sreedhar8897/2048-game:latest
+        image: yanishub1/2048-game:latest
         ports:
         - containerPort: 80
         imagePullPolicy: Always
