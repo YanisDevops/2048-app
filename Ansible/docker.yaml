@@ -7,8 +7,11 @@
       apt:
         update_cache: yes   
         
-    - name: stop remove old container
-      command: docker stop 2048-game && docker rm -f 2048-game 
+    - name: stop old container
+      command: docker stop 2048-game
+      
+    - name: remove old container
+      command: docker rm 2048-game 
 
     - name: Build Docker Image
       command: docker build -t 2048-game .
