@@ -6,6 +6,9 @@
     - name: Update apt package cache
       apt:
         update_cache: yes   
+        
+    - name: Remove image
+      command: docker rm -f 2048-game 
 
     - name: Build Docker Image
       command: docker build -t 2048-game .
