@@ -5,10 +5,10 @@
 
   tasks:
     - name: Delete Deployment
-      command: kubectl delete -f /home/ubuntu/deployment.yaml
+      command: kubectl delete -f /home/ubuntu/deployment.yaml || true
 
     - name: Remove file
-      command: rm -rf /home/ubuntu/deployment.yaml
+      command: rm -rf /home/ubuntu/deployment.yaml || true
       
     - name: Copy deployment.yaml to Kubernetes master
       copy:
